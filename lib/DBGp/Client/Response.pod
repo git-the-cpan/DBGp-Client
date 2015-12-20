@@ -66,6 +66,40 @@ Accessors:
 
 =back
 
+=head2 status
+
+Implemented by C<DBGp::Client::Response::Step>. See also
+L<status|http://xdebug.org/docs-dbgp.php#status> in the
+DBGp spec.
+
+Accessors:
+
+=over 4
+
+=item reason
+
+=item status
+
+=back
+
+=head2 feature_get
+
+Implemented by C<DBGp::Client::Response::FeatureGet>. See also
+L<feature_get|http://xdebug.org/docs-dbgp.php#feature-get>
+in the DBGp spec.
+
+Accessors:
+
+=over 4
+
+=item supported
+
+=item feature
+
+=item value
+
+=back
+
 =head2 feature_set
 
 Implemented by C<DBGp::Client::Response::FeatureSet>. See also
@@ -106,11 +140,326 @@ Might or might not be present (Xdebug extension not in the specification)
 
 =back
 
-=cut
+=head2 breakpoint_set
 
-# TODO: breakpoint_set, breakpoint_remove, breakpoint_list, stack_get, context_names, context_get, typemap_get
+Implemented by C<DBGp::Client::Response::BreakpointSet>. See also
+L<breakpoint_set|http://xdebug.org/docs-dbgp.php#id1> in the
+DBGp spec.
 
-# TODO: eval
+Accessors:
+
+=over 4
+
+=item state
+
+=item id
+
+=back
+
+=head2 breakpoint_get
+
+Implemented by C<DBGp::Client::Response::BreakpointGetUpdateRemove>. See also
+L<breakpoint_get|http://xdebug.org/docs-dbgp.php#id2> in the
+DBGp spec.
+
+Accessors:
+
+=over 4
+
+=item breakpoint
+
+A L</breakpoint> object (see below).
+
+=back
+
+=head2 breakpoint_update
+
+Implemented by C<DBGp::Client::Response::BreakpointGetUpdateRemove>. See also
+L<breakpoint_get|http://xdebug.org/docs-dbgp.php#id3> in the
+DBGp spec.
+
+Accessors:
+
+=over 4
+
+=item breakpoint
+
+(Optional) A L</breakpoint> object (see below). Not documented in the DBGp spec.
+
+=back
+
+=head2 breakpoint_remove
+
+Implemented by C<DBGp::Client::Response::BreakpointGetUpdateRemove>. See also
+L<breakpoint_remove|http://xdebug.org/docs-dbgp.php#id4> in the
+DBGp spec.
+
+Accessors:
+
+=over 4
+
+=item breakpoint
+
+(Optional) A L</breakpoint> object (see below).
+
+=back
+
+=head2 breakpoint_list
+
+Implemented by C<DBGp::Client::Response::BreakpointList>. See also
+L<breakpoint_list|http://xdebug.org/docs-dbgp.php#id5> in the
+DBGp spec.
+
+Accessors:
+
+=over 4
+
+=item breakpoints
+
+An array of L</breakpoint> objects (see below).
+
+=back
+
+=head2 stack_depth
+
+Implemented by C<DBGp::Client::Response::StackDepth>. See also
+L<stack_depth|http://xdebug.org/docs-dbgp.php#stack-depth> in the
+DBGp spec.
+
+Accessors:
+
+=over 4
+
+=item depth
+
+=back
+
+=head2 stack_get
+
+Implemented by C<DBGp::Client::Response::StackGet>. See also
+L<stack_get|http://xdebug.org/docs-dbgp.php#stack-get> in the
+DBGp spec.
+
+Accessors:
+
+=over 4
+
+=item frames
+
+An array of C<frame> objects; each object has the following attributes:
+
+=over 4
+
+=item level
+
+=item type
+
+=item filename
+
+=item where
+
+=item lineno
+
+=back
+
+=back
+
+=head2 context_names
+
+Implemented by C<DBGp::Client::Response::ContextNames>. See also
+L<context_names|http://xdebug.org/docs-dbgp.php#context-names> in the
+DBGp spec.
+
+Accessors:
+
+=over 4
+
+=item contexts
+
+An array of C<context> objects; each object has the following attributes:
+
+=over 4
+
+=item name
+
+=item id
+
+=back
+
+=back
+
+=head2 context_get
+
+Implemented by C<DBGp::Client::Response::ContextGet>. See also
+L<context_get|http://xdebug.org/docs-dbgp.php#context-get> in the
+DBGp spec.
+
+Accessors:
+
+=over 4
+
+=item context_id
+
+=item values
+
+An array of L</property> objects (see below).
+
+=back
+
+=head2 typemap_get
+
+Implemented by C<DBGp::Client::Response::Typemap>. See also
+L<typemap_get|http://xdebug.org/docs-dbgp.php#typemap-get> in the
+DBGp spec.
+
+Accessors:
+
+=over 4
+
+=item types
+
+An array of C<type> objects; each object has the following attributes:
+
+=over 4
+
+=item type
+
+=item name
+
+=item xsi_type
+
+=back
+
+=back
+
+=head2 property_get
+
+Implemented by C<DBGp::Client::Response::PropertyGet>. See also
+L<property_get, property_set, property_value|http://xdebug.org/docs-dbgp.php#property-get-property-set-property-value> in the
+DBGp spec.
+
+Accessors:
+
+=over 4
+
+=item property
+
+A L</property> object (see below).
+
+=back
+
+=head2 property_set
+
+Implemented by C<DBGp::Client::Response::PropertySet>. See also
+L<property_get, property_set, property_value|http://xdebug.org/docs-dbgp.php#property-get-property-set-property-value> in the
+DBGp spec.
+
+Accessors:
+
+=over 4
+
+=item success
+
+=back
+
+=head2 property_value
+
+Implemented by C<DBGp::Client::Response::PropertyValue>. See also
+L<property_get, property_set, property_value|http://xdebug.org/docs-dbgp.php#property-get-property-set-property-value> in the
+DBGp spec.
+
+Accessors:
+
+=over 4
+
+=item size
+
+=item value
+
+Decoded value string.
+
+=back
+
+=head2 source
+
+Implemented by C<DBGp::Client::Response::Source>. See also
+L<source|http://xdebug.org/docs-dbgp.php#source> in the
+DBGp spec.
+
+Accessors:
+
+=over 4
+
+=item success
+
+=item source
+
+=back
+
+=head2 stdin, stdout, stderr
+
+Implemented by C<DBGp::Client::Response::Redirect>. See also
+L<stdout, stderr|http://xdebug.org/docs-dbgp.php#stdout-stderr> and
+L<stdin|http://xdebug.org/docs-dbgp.php#stdin> in the
+DBGp spec.
+
+Accessors:
+
+=over 4
+
+=item success
+
+=back
+
+=head2 break
+
+Implemented by C<DBGp::Client::Response::Break>. See also
+L<break|http://xdebug.org/docs-dbgp.php#break> in the
+DBGp spec.
+
+Accessors:
+
+=over 4
+
+=item success
+
+=back
+
+=head2 eval, expr, exec
+
+Implemented by C<DBGp::Client::Response::Eval>. See also
+L<eval|http://xdebug.org/docs-dbgp.php#eval> in the
+DBGp spec.
+
+Accessors:
+
+=over 4
+
+=item success
+
+=item result
+
+An optional L</property> object (see below).
+
+=back
+
+=head2 interact
+
+Implemented by C<DBGp::Client::Response::Interact>. See also
+L<interact - interactive shell|http://xdebug.org/docs-dbgp.php#interact-interactive-shell> in the
+DBGp spec.
+
+Accessors:
+
+=over 4
+
+=item status
+
+=item more
+
+=item prompt
+
+=back
 
 =head1 OTHER OBJECTS
 
